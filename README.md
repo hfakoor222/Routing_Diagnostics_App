@@ -50,27 +50,7 @@ My eventual plan is to add diagnostics to Connection_Handler.py, which include c
 Adding these in only means updating the view layer which is presented as CLI.
 
 The one area I may refactor a good bit is the CLI.py itself and rework the while loops into functions.
-i.e.
-<p align="center">
-                        while True:
-                            if choice_res.lower() == "r":
-                                device.discard_config()  # for production
-                                # pass #quicker in testing environments
-                            elif choice_res.lower() == "c":
-                                try:
-                                    device.commit_config()
-                                    print("Merge Successful")
-                                except Exception as e:
-                                    print(f"merge error" + str({e}))
-                                    print("If receiving a pattern detected error: make sure to have archive path, scp enabled," \
-                                          "a nd proper formatting of your disk:/flash: directory on the device \n"
-                                          "also make sure file prompt quiet is turned off on device, or set the variable to False")
-                                    break
-                            else:
-                                choice_res = input("Rollback or commit changes? (C|R)")
-                            device.close()  # finally closing the device: remember to explicitly open the device on each new call(done in functions)
-                            break
-</p>
+
 
 This may be prudent as the program grows, and not to have a view layer running with long code. However this layer might be better as a hosted web app
 via Javascript and HTML.

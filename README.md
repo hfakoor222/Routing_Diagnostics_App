@@ -1,8 +1,7 @@
 # Routing_Diagnostics_App
 
 
-This is a modularized program which updates networking routers and switches with configurations: there is a ping checker before and after the updates which pings ip_address library compliant (RFC compliant)
-address subnets, inputted by the user. It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 
+This is a modularized program which updates networking routers and switches with configurations: there is a ping checker before and after the updates which pings ip_address library compliant (RFC compliant).  It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 
 The user is able to rollback the devices in batch, by typing in "Y", as rollback_configs are saved in directory and on the device. The configs
 are transmitted using SCP (which network devices support). Obtaining the device configurations, and running network diagnostics is threaded,
 so the processes run in parallel (considering GIL). 
@@ -76,4 +75,4 @@ The app has been tested on Cisco 3660, 7200 routers  and more updated firmware w
 
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.
 
-:kissing:
+🤗

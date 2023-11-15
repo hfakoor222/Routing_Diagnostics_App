@@ -1,4 +1,8 @@
-<span style="color: red;"># Routing_Diagnostics_App</span>
+
+
+
+
+# Routing_Diagnostics_App
 
 
 This is a modularized program which updates networking routers and switches with configurations: there is a ping checker before and after the updates which pings ip_address library compliant (RFC compliant).  It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 
@@ -8,13 +12,14 @@ so the processes run in parallel (considering GIL).
 
 Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block returns results. The user can search for  
 
-
-
+      ```diff
       [router ospf, redistribute bgp]  
+      ```
       and it finds all OSPF configs which redistribute bgp
  
-       
+       ```diff
        [router bgp, address-family ipv6]  
+       ```
        finds all ipv6 enabled bgp devices
 
 
@@ -72,7 +77,9 @@ This may be prudent as the program grows, and not to have a view layer running w
 The app has been tested on Cisco 3660, 7200 routers  and more updated firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
 
 
-
+```diff
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.
+```
+
 
 🤗

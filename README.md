@@ -7,7 +7,7 @@ The user is able to rollback the devices in batch, by typing in "Y", as rollback
 are transmitted using SCP (which network devices support). Obtaining the device configurations, and running network diagnostics is threaded,
 so the processes run in parallel (considering GIL). 
 
-Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block returns results. The suer can search for [router ospf, redistribute bgp] and it finds all OSPF configs with these parameters,
+Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block returns results. The user can search for [router ospf, redistribute bgp] and it finds all OSPF configs with these parameters,
 or [router bgp, address-family ipv6] finds all bgp devices enabled for ipv6.
 
 The program is created in modules, so adding extra diagnostics is easy: afterwards it simply needs to be placed in the right section of the view layer.
@@ -45,15 +45,19 @@ Here is about 1/3 of its supported functions:
 </p>
 This might mean overloading classes is not necessary.
 
-My eventual plan is to add diagnostics to Connection_Handler.py, which include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions.
+My eventual plan is to add diagnostics to Connection_Handler.py, which include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions. There's an argument for adding a spoofed ip header functionality as well, from the central node.
 
 Adding these in only means updating the view layer which is presented as CLI.
 
 The one area I may refactor a good bit is the CLI.py itself and rework the while loops into functions.
 
 
-This may be prudent as the program grows, and not to have a view layer running with long code. However this layer might be better as a hosted web app
-via Javascript and HTML.
+This may be prudent as the program grows, and not to have a view layer running with long code. However this layer might be better as a hosted web app via Javascript and HTML.
+
+
+
+The app has been tested on Cisco 3660, 7200 routers  and more updated firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
+
 
 
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.

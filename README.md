@@ -9,10 +9,10 @@ so the processes run in parallel (considering GIL).
 
 Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block returns results. The user can search for [router ospf, redistribute bgp] and it finds all OSPF configs with these parameters,
 or
-<pre>
+
      [router bgp, address-family ipv6]  
     finds all ipv6 enabled bgp devices
-<pre>
+
 The program is created in modules, so adding extra diagnostics is easy: afterwards it simply needs to be placed in the right section of the view layer.
 
 It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.

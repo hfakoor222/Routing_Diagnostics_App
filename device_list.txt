@@ -1,0 +1,8 @@
+["ios", "10.0.1.2", "cisco", "cisco123", "cisco123"]
+["ios", "10.0.3.4", "cisco", "cisco123", "cisco123"]
+["ios", "10.0.1.130", "cisco", "cisco123", "cisco123"]
+["ios", "10.0.1.1", "cisco", "cisco123", "cisco123"]
+["ios", "11.0.1.253", "cisco", "cisco123", "cisco123"]
+["ios", "11.0.1.1", "cisco", "cisco123", "cisco123"]
+["ios", "11.0.1.2", "cisco", "cisco123", "cisco123"]
+["ios", "11.0.2.1", "cisco", "cisco123", "cisco123"]

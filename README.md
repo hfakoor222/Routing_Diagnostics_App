@@ -12,14 +12,14 @@ so the processes run in parallel (considering GIL).
 
 Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block returns results. The user can search for  
 
-      ```diff
+     
       [router ospf, redistribute bgp]  
-      ```
+      
       and it finds all OSPF configs which redistribute bgp
  
-       ```diff
+       
        [router bgp, address-family ipv6]  
-       ```
+      
        finds all ipv6 enabled bgp devices
 
 
@@ -78,7 +78,7 @@ The app has been tested on Cisco 3660, 7200 routers  and more updated firmware w
 
 
 ```diff
-If you would like to contribute on this  project I am open to any suggestions, and collaboration.
+-If you would like to contribute on this  project I am open to any suggestions, and collaboration.
 ```
 
 

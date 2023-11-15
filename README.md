@@ -1,4 +1,4 @@
-# Routing_Diagnostics_App
+<span style="color: red;"># Routing_Diagnostics_App</span>
 
 
 This is a modularized program which updates networking routers and switches with configurations: there is a ping checker before and after the updates which pings ip_address library compliant (RFC compliant).  It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 

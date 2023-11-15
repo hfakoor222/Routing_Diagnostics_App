@@ -14,12 +14,10 @@ Obtaining configurations is done via regex.findall: the configurations from devi
 
      
       [router ospf, redistribute bgp]  
-      
       and it finds all OSPF configs which redistribute bgp
  
        
        [router bgp, address-family ipv6]  
-      
        finds all ipv6 enabled bgp devices
 
 

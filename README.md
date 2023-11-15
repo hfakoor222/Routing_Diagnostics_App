@@ -7,8 +7,13 @@ The user is able to rollback the devices in batch, by typing in "Y", as rollback
 are transmitted using SCP (which network devices support). Obtaining the device configurations, and running network diagnostics is threaded,
 so the processes run in parallel (considering GIL). 
 
-Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block returns results. The user can search for [router ospf, redistribute bgp] and it finds all OSPF configs with these parameters,
-or  
+Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block returns results. The user can search for  
+
+
+
+     [router ospf, redistribute bgp]  
+     and it finds all OSPF configs with these parameters,
+ 
 
        
        [router bgp, address-family ipv6]  

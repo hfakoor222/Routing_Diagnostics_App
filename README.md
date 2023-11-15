@@ -32,23 +32,14 @@ I will be deciding between overloading classes, or simply using NAPALM's built i
 Here is about 1/3 of its supported functions:  
   
                 #     napalm_device.get_interfaces_counters  
-                
                 #    napalm_device.get_interfaces  
-                
                 #    napalm_device.get_interfaces_ip  
-                
                 #    napalm_device.get_facts  
-                
                 #    napalm_device.get_environment (temp, fan speed, cpu)  
-                
                 #    napalm_device.cli    (cli commands)  
-                
                 #    napalm_device.get_arp_table  
-                
                 #    napalm_device.get_bgp_config  
-                
                 #    napalm_device.get_bgp_neighbors  
-                
                 #    NAPALM includes about triple the fucntions I've listed  
                 
 </p>

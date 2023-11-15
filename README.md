@@ -11,10 +11,9 @@ Obtaining configurations is done via regex.findall: the configurations from devi
 
 
 
-     [router ospf, redistribute bgp]  
-     and it finds all OSPF configs with these parameters,
+      [router ospf, redistribute bgp]  
+      and it finds all OSPF configs which redistribute bgp
  
-
        
        [router bgp, address-family ipv6]  
        finds all ipv6 enabled bgp devices
@@ -24,9 +23,9 @@ Obtaining configurations is done via regex.findall: the configurations from devi
 
 
     
-The program is created in modules, so adding extra diagnostics is easy: afterwards it simply needs to be placed in the right section of the view layer.
+The program is created in modules, so adding extra diagnostics is easy: afterwards it simply needs to be placed in the right section of the view layer. For example under Connection_Handler I've added ping, and device connection functions.
 
-It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.
+
 
 I've minimized 3rd party library use to stable libraries: NAPALM, time, os, re, logging, threading, and ipaddress.
 Program is platform independent.
@@ -62,6 +61,7 @@ This might mean overloading classes is not necessary.
 My eventual plan is to add diagnostics to Connection_Handler.py, which include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions. There's an argument for adding a spoofed ip header functionality as well, from the central node.
 
 Adding these in only means updating the view layer which is presented as CLI.
+It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.
 
 The one area I may refactor a good bit is the CLI.py itself and rework the while loops into functions.
 
@@ -76,4 +76,4 @@ The app has been tested on Cisco 3660, 7200 routers  and more updated firmware w
 
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.
 
-(https://img.shields.io/github/languages/top/{hfakoor222}/{Routing_Diagnostics_App}?color=yellow)
+:kissing:

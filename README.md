@@ -5,7 +5,8 @@
 # Routing_Diagnostics_App
 
 
-This program updates networking routers and switches with configurations: there is a ping checker before and after the updates which pings ip_address library compliant (RFC compliant).  It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 
+This program updates networking routers and switches with configurations. It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 
+
 The user is able to rollback the devices in batch, by typing in "Y", as rollback_configs are saved in directory and on the device. The configs
 are transmitted using SCP (which network devices support). Obtaining the device configurations, and running network diagnostics is threaded,
 so the processes run in parallel (considering GIL). 
@@ -30,7 +31,7 @@ The program is created in modules, so adding extra diagnostics is easy: afterwar
 
 
 I've minimized 3rd party library use to stable libraries: NAPALM, time, os, re, logging, threading, and ipaddress.
-Program is platform independent.
+Program is platform independent. Written in Python 3.
 
 The program is geared more towards improving time complexity rather than memory use, as this is better for connecting to and writing/reading to devices.
 
@@ -58,9 +59,9 @@ Here is about 1/3 of NAPALM's supported functions:
                 #    NAPALM includes about triple the fucntions I've listed  
                 
 </p>
-This might mean overloading classes is not necessary. These funtions would be easy to integrate into the modules of the program.
 
-My eventual plan is to add diagnostics to Connection_Handler.py, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions. There's an argument for adding a spoofed ip header functionality as well, to ping from the central node.
+
+My eventual plan is to add diagnostics to Connection_Handler.py, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions, route costs. There's an argument for adding a spoofed ip header functionality as well, to ping from the central node.
 
 Adding these in only means updating the view layer which is presented as CLI.
 It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.

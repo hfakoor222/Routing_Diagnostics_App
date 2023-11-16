@@ -25,7 +25,7 @@ Obtaining configurations is done via regex.findall: the configurations from devi
 
 
     
-The program is created in modules, so adding extra diagnostics is easy: afterwards it simply needs to be placed in the right section of the view layer. For example under Connection_Handler I've added ping, and device connection functions.
+The program is created in modules, so adding extra diagnostics is easy: afterwards it simply needs to be placed in the right section of the view layer. 
 
 
 
@@ -63,11 +63,6 @@ Adding these in only means updating the view layer which is presented as CLI.
 It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.
 
 The one area I may refactor a good bit is the CLI.py view layer itself and rework the while loops into functions.
-
-
-This may be prudent as the program grows, and not to have a view layer running with long code. However this layer might be better as a hosted web app via Javascript and HTML.
-
-
 
 The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
 

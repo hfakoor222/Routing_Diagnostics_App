@@ -1,7 +1,6 @@
 
 
 
-
 $${\color{Green}Routing \space \color{Green}Diagnostics \space \color{Green}App}$$
 
 This program updates networking routers and switches with configurations. It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 

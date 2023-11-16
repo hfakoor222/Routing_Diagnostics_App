@@ -37,10 +37,8 @@ The program is geared more towards improving time complexity rather than memory 
 It's mostly ran on dictionaries, with minimal list usage or modifications, which is better for memory (Python holds it's native info as dicts, and managing lists has high memory cost).
 
 
-The functions themselves are built for multi-use: for example the get_configurations_threaded, and get_configurations functions under Search_Configurations.py
-are used in different contexts: it is possible to refactor these into classes and overload them, I may consider this while developing the program further.
+The functions themselves are built for multi-use: it is possible to refactor these into classes and overload them, I may consider this while developing the program further.
 
-The functions throughout the modules are used in different contexts to populate dictionaries for comparisons. 
 
 I will be deciding between overloading classes, or simply using NAPALM's built in functions: 
 <p align="center">
@@ -75,11 +73,11 @@ This may be prudent as the program grows, and not to have a view layer running w
 The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
 
 
-```diff
--If you would like to contribute on this  project I am open to any suggestions, and collaboration.
--I am open to any contributions, including and not limited to refactoring the view layer, adding diagnostics, cloud API's.
--Currently I've found an interesting project which batch updates cisco devices from a single GUI, which I may integrate here.
-```
+$${\color{Green}Collaboration}$$
+If you would like to contribute on this  project I am open to any suggestions, and collaboration.
+I am open to any contributions, including and not limited to refactoring the view layer, adding diagnostics, cloud API's.
+Currently I've found an interesting project which batch updates cisco devices from a single GUI, which I may integrate here.
+
 
 
 🤗

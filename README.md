@@ -44,7 +44,7 @@ The functions throughout the modules are used in different contexts to populate 
 
 I will be deciding between overloading classes, or simply using NAPALM's built in functions: 
 <p align="center">
-Here is about 1/3 of its supported functions:  
+Here is about 1/3 of NAPALM's supported functions:  
   
                 #    napalm_device.get_interfaces_counters  
                 #    napalm_device.get_interfaces  
@@ -58,9 +58,9 @@ Here is about 1/3 of its supported functions:
                 #    NAPALM includes about triple the fucntions I've listed  
                 
 </p>
-This might mean overloading classes is not necessary.
+This might mean overloading classes is not necessary. These funtions would be easy to integrate into the modules of the program.
 
-My eventual plan is to add diagnostics to Connection_Handler.py, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions. There's an argument for adding a spoofed ip header functionality as well, from the central node.
+My eventual plan is to add diagnostics to Connection_Handler.py, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions. There's an argument for adding a spoofed ip header functionality as well, to ping from the central node.
 
 Adding these in only means updating the view layer which is presented as CLI.
 It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.
@@ -72,11 +72,12 @@ This may be prudent as the program grows, and not to have a view layer running w
 
 
 
-The app has been tested on Cisco 3660, 7200 routers  and more updated firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
+The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
 
 
 ```diff
 -If you would like to contribute on this  project I am open to any suggestions, and collaboration.
+I am open to any contributions, including and not limited to refactoring the view layer, adding diagnostics, cloud API's. Currently I've found an interesting project which batch updates cisco devices from a single GUI, which I may integrate here.
 ```
 
 

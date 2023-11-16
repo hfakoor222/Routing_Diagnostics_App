@@ -13,11 +13,11 @@ so the processes run in parallel (considering GIL).
 Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block, or any and any item,  returns results. The user can search for  
 
      
-      **[router ospf, redistribute bgp**]  
+      [router ospf, redistribute bgp]  
       and it finds all OSPF configs which redistribute bgp
  
        
-     **[router bgp, address-family ipv6] ** 
+     [router bgp, address-family ipv6]
      finds all ipv6 enabled bgp devices
 
 
@@ -34,7 +34,6 @@ Program is platform independent. Written in Python 3.
 
 The program is geared more towards improving time complexity rather than memory use, as this is better for connecting to and writing/reading to devices.
 
-It's mostly ran on dictionaries, with minimal list usage or modifications, which is better for memory (Python holds it's native info as dicts, and managing lists has high memory cost).
 
 
 The functions themselves are built for multi-use: it is possible to refactor these into classes and overload them, I may consider this while developing the program further.
@@ -72,6 +71,8 @@ This may be prudent as the program grows, and not to have a view layer running w
 
 The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
 
+
+To run it include a device_list.txt file in your code directory with device user, pass ,secret, ip_address (see example).
 
 $${\color{Green}Collaboration}$$
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.

@@ -13,11 +13,11 @@ so the processes run in parallel (considering GIL).
 Obtaining configurations is done via regex.findall: the configurations from devices are split into blocks. So searching for the first and last item in a block, or any and any item,  returns results. The user can search for  
 
      
-      [router ospf, redistribute bgp]  
+      **[router ospf, redistribute bgp**]  
       and it finds all OSPF configs which redistribute bgp
  
        
-     [router bgp, address-family ipv6]  
+     **[router bgp, address-family ipv6] ** 
      finds all ipv6 enabled bgp devices
 
 

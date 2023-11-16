@@ -1,9 +1,17 @@
 
 
+<p align="center">
+<img src=https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif width="350" height="200"/>
+</p>
 
-$${\color{Green}Routing \space \color{Green}Diagnostics \space \color{Green}App}$$
+
+
+
+
+$${\huge\color{Green}Routing \space \color{Green}Diagnostics \space \color{Green}App}$$
 
 This program updates networking routers and switches with configurations. It connects to every network device before and after configuration changes, runs dignostics, and compares those diagnostics. 
+
 
 The user is able to rollback the devices in batch, by typing in "Y", as rollback_configs are saved in directory and on the device. The configs
 are transmitted using SCP (which network devices support). Obtaining the device configurations, and running network diagnostics is threaded,
@@ -60,8 +68,6 @@ My eventual plan is to add diagnostics to Connection_Handler.py, to include chec
 
 Adding these in only means updating the view layer which is presented as CLI.
 It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.
-
-The one area I may refactor a good bit is the CLI.py view layer itself and rework the while loops into functions.
 
 The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
 

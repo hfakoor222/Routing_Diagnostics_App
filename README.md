@@ -18,7 +18,7 @@ Eventual plan is to add diagnostics to Connection_Handler.py, to include checkin
 
 It is a CLI based app: a web hosted version may be added.
 
-Advantage is manually setting conditions with code: returning alerts if ospf LSDB generation changes on a certain part of the network: something which may be difficult to do with SolarWinds (imagine consistently manually changing SolarWinds to treat different parts of the network, and having pre-made code ready).
+Advantage is manually setting conditions with code: something which may be difficult to do with SolarWinds:  i.e RFC 3101 sets P-Bit clear for OSPF redistribution. Cisco devices use 3101, yet it works different for Junos devices. We can account for this through code when testing redistribution issues.
 
 To run it include a device_list.txt file in your code directory with device user, pass ,secret, ip_address (see example). The .txt file can be encrypted and decrypted when being read by Python
 

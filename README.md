@@ -18,9 +18,9 @@ Eventual plan is to add diagnostics to Connection_Handler.py, to include checkin
 
 It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.
 
-Advantage is manually setting conditions with code: returning alerts if ospf LSDB generation changes on a certain part of the network: something which may be difficult to do with SolarWinds.
+Advantage is manually setting conditions with code: returning alerts if ospf LSDB generation changes on a certain part of the network: something which may be difficult to do with SolarWinds (imagine consistently manually changing SolarWinds to treat different parts of the network, and having pre-made code ready)..
 
-To run it include a device_list.txt file in your code directory with device user, pass ,secret, ip_address (see example). The .txt file can be encrypted and decrypted when being rad by Python
+To run it include a device_list.txt file in your code directory with device user, pass ,secret, ip_address (see example). The .txt file can be encrypted and decrypted when being read by Python
 
 The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)
 

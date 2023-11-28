@@ -29,7 +29,11 @@ To run it include a device_list.txt file in your code directory with device user
 
 
 
-Uploading Routing_Diagnostics(1) (online-video-cutter.com) (1).mp4…
+
+
+https://github.com/hfakoor222/Routing_Diagnostics_App/assets/105625129/ec28c1b3-b104-4015-b5fb-41560f396447
+
+
 
 
 

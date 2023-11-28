@@ -25,7 +25,15 @@ To run it include a device_list.txt file in your code directory with device user
 <p>The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)  <br><br><br><p></p>
 
 
-       
+
+
+
+
+Uploading Routing_Diagnostics(1) (online-video-cutter.com) (1).mp4…
+
+
+
+
   $${\large\color{Green}Collaboration}$$
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.
 I am open to any contributions, including and not limited to refactoring the view layer, adding diagnostics, cloud API's.

@@ -16,7 +16,7 @@ Currently it supports BGP and routing tables: extending it is easy as the progra
 
 Eventual plan is to add diagnostics to Connection_Handler.py, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions, + more. 
 
-It is a CLI based app: update for curses library as an overlay, or a web hosted app may be added.
+It is a CLI based app: a web hosted version may be added.
 
 Advantage is manually setting conditions with code: returning alerts if ospf LSDB generation changes on a certain part of the network: something which may be difficult to do with SolarWinds (imagine consistently manually changing SolarWinds to treat different parts of the network, and having pre-made code ready)..
 
@@ -36,7 +36,10 @@ https://github.com/hfakoor222/Routing_Diagnostics_App/assets/105625129/ec28c1b3-
 
 
 
-
+<p>
+  <br>
+  <br>
+</p>
 
   $${\large\color{Green}Collaboration}$$
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.

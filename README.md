@@ -26,7 +26,9 @@ The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmwa
 
 
 
-$${\color{Green}Collaboration}$$
+
+
+$${\large\color{Green}Collaboration}$$
 If you would like to contribute on this  project I am open to any suggestions, and collaboration.
 I am open to any contributions, including and not limited to refactoring the view layer, adding diagnostics, cloud API's.
 Currently I've found an interesting project which batch updates cisco devices from a single GUI, which I may integrate here.

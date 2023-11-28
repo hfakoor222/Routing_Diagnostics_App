@@ -1,8 +1,8 @@
 
 """
 general doc:
-this file holds the conenction handler and general system functions such as saving files, and geenrating reports:
-for updating devices and rolling-back in batch, which is an extended feature, see the next doc string below
+this file holds the conenction handler and general system functions such as saving files, and genrating reports:
+Includes extended feature for updating devices and rolling-back in batch, see the next doc string below
 """
 """
 for rollback functionality: According to author of NAPALM libarary this is how it's done:
@@ -14,9 +14,7 @@ Note, the current running-config is saved to rollback_config.txt on any commit o
 NAPALM is a major automation framework for routers and switches. It is reliable.
 
 Also note I'm working on adding  a multiconnect dynamic screen as web hosted for batch updating configs - right now CLI supported,
-however until I add something better (integrated Putty, integrated multi-CLi via web page, then 
-for now this program is great for obtaining routing and device diagnostics saving it to (MongoDB?)
-and comparing results after config changes, notably via traditional methods (the device CLI or programatically)
+however until I add something better (integrated Putty, integrated multi-CLi via web page)
 """
 
 from napalm import get_network_driver

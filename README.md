@@ -11,7 +11,7 @@ $${\huge\color{Green}Routing \space \color{Green}Diagnostics \space \color{Green
 
 This CLI app runs diagnostics: Connectivity of subnets from each device, hardware information (fan speed, temperature), arp tables, and routing information. It saves to timestamped files, and reports are generated (see the word doc in the repository). After configuration changes it is ran again and major changes are generated into a report: loss of routing paths, cdp changes, major hardware changes. 
 
-Currently it supports BGP and routing tables: extending it is easy as the program is modularized: i.e where ospf Link State packets are generated.
+Currently it supports BGP and routing tables: extending it is easy as the program is modularized: i.e where ospf Link State default route packets are generated.
 
 
 Eventual plan is to add diagnostics to Connection_Handler.py, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions, + more. 

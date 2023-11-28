@@ -152,10 +152,9 @@ semaphore = threading.Semaphore(max_workers)
 place this under threaded_ping_results()  --> semaphore.release() 
 """
 
-
 """
-    This section of below code involves report generation via word docs: we can modify this to PDF
-    I prefer word docs
+This section of below code involves report generation via word docs: we can modify this to PDF
+I prefer word docs
 """
 
 
@@ -194,7 +193,7 @@ def generate_report_difference(routing_differences={}, ping_differences={}, napa
 
 #big Note: We can merge the two report generation functions: Splitting them up gives us a little bit more manual control:
 #also I wish to move the directory =, and ping-file, napalm_file, routing_file procedures outside of this function at some point
-#also we could pass in dicts directly - is smarter to generate based on saved files
+#also we could pass in dicts directly - is smarter to generate reports based off of saved files
 
 def generate_report_by_ip_address():
     # Specify the directory where the files are located

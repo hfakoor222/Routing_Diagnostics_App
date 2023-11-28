@@ -5,6 +5,7 @@ I may use my fuzzy_configuration_parser script to extend the search capabilities
 """
 import re
 import threading
+from Sanity_Check_Diagnostics import DeviceParser
 
 config_search_results = {}
 output_dict = {}
@@ -15,30 +16,67 @@ config_dict_before = {}
 #this function takes the device_connections table, and configurations from each device to a master table
 #it calls the get_configuration function, and applies threading. we pass config_master_table
 # to get_configuration. In our program dictionary will be called config_table_before
-def get_configurations_threaded(device_connections, config_dict_before  ={}):
+def get_configurations_threaded(device_connections, config_dict_before  ={}, routing_dict_before = {}, napalm_results_dict = None):
     threads = []
     for device, (device_type, device_ip, username, password, secret) in device_connections.items():
-        thread = threading.Thread(target=get_configuration, args=(device, device_ip, device_type, config_dict_before ))
+        if napalm_results_dict is None:
+            thread = threading.Thread(target=get_configuration, args=(device, device_ip, device_type, config_dict_before, routing_dict_before))
+        else:
+            thread = threading.Thread(target=get_configuration, args=(device, device_ip, device_type, config_dict_before, routing_dict_before, napalm_results_dict))
         threads.append(thread)
         thread.start()
-
-
     for thread in threads:
         thread.join()
         # print(threading.current_thread().name)
 
 # we can overload get_configuration, and get_configurations_threaded with extra functions, to obtain results other than get_config, or format them into classes
-def get_configuration(device, device_ip, device_type, config_dict_before ):
+def get_configuration(device, device_ip, device_type, config_dict_before={}, routing_dict_before={}, napalm_results_dict =None):
     try:
-        #device.open()
         config = device.get_config()
         config_dict_before[device_ip] = config
+
+
+        routing_info = device._send_command("show ip route")
+        device_parser = DeviceParser(device_ip, routing_dict_before)
+        device_parser.parse_routing_info(routing_info)
+        # Optionally call napalm_functions: We do this to get everything in one go, optionally
+        if napalm_results_dict is not None:
+            napalm_results = napalm_functions(device)
+            napalm_results_dict[device_ip] = napalm_results
     except Exception as e:
         print(f"Failed to retrieve configuration for {device_ip}: {str(e)}")
     finally:
         print(threading.current_thread().name)
 
+def napalm_functions(device, result_dict=None): #the result_dict = None allows us to call this  in via get_configurations, or call this function directly by passing in a dict
+    result_dict = {}
+    # List of functions to call
+    functions = [
+        device.get_bgp_neighbors,
+        device.get_environment,
+        device.get_arp_table,
+        # lambda: device.get_route_to("0.0.0.0"),  # Using lambda for functions with arguments: lambda overrides errors with using "0.0.0.0"
+        device.get_facts,
+        device.get_ntp_stats]
+    # Iterate through functions
+    for func in functions:
+        result = func()
+        result_dict[func.__name__] = result
+    return result_dict
 
+def threaded_napalm(device_connections, result_dict = None):
+    for device, (device_type, device_ip, username, password, secret) in device_connections.items():
+
+        threads = []
+        for func in functions:
+            thread = threading.Thread(target=napalm_functions, args=(device,))
+            thread.start()
+            threads.append(thread)
+        # Wait for all threads to finish
+        for thread in threads:
+            thread.join()
+            # we include an optional result_dict in funciton signature so we can pass it in directly or pass the function to a dict itself
+        return result_dict
 
 def search_configurations(input_dict={}, output_dict={}, search_strings=None, search_strings_dict = None, ):
     #arguments are input_dict: we find search_string in input_dict and append to output_dict
@@ -68,3 +106,12 @@ def search_configurations(input_dict={}, output_dict={}, search_strings=None, se
         value = value.replace("\\n", ',') #the replacement is for printing it out to screen - the user can copy paste from whats on the screen, and add more configurations to push
         print(f"{key}: {value}")
     return output_dict
+
+
+
+def obtain_bgp_table(device_connections, output_dictionary={}):
+    for device, (device_type, device_ip, username, password, secret) in device_connections.items():
+        bgp_table = napalm_device._send_command(bgp_summary_dict[device_type])
+        if bgp_table is not None:
+            bgp_dict_before[device_ip] = bgp_table_before
+        print(bgp_dict_before)

@@ -4,22 +4,23 @@ It includes a lot of code, which is not appropriate to include in the "logic" mo
 This makes it less visually appealing, however if we were to refactor, or add more logic to our application
 It keeps things organized and consistent.
 """
-
 import argparse
 import threading
 import os
 from napalm import get_network_driver
 from napalm.base.exceptions import MergeConfigException
 import re
+import random
 
-from Sanity_Check_Diagnostics import get_valid_ip_addresses, get_valid_search_string
-from Search_Configurations import get_configurations_threaded, search_configurations
 
-from Connection_Handler import handle_ip_addresses, appending_to_ping_table, \
-threaded_network_driver, obtain_bgp_table, initialize_device_connections, device_list_populator
+from Sanity_Check_Diagnostics import get_valid_ip_addresses, get_valid_search_string, compare_routing_dicts
+from Search_Configurations import get_configurations_threaded, search_configurations, obtain_bgp_table, napalm_functions
+
+from Connection_Handler import handle_ip_addresses, appending_to_ping_table
+from Connection_Handler import threaded_network_driver, initialize_device_connections, device_list_populator, save_results_to_file
+from Connection_Handler import generate_report_by_ip_address, generate_report_difference
+
 from Connection_Handler import  device_connections #this is the one list that's necessary to import
-
-import logging
 
 import logging
 logging.basicConfig(filename='test.log', level=logging.DEBUG)
@@ -30,6 +31,8 @@ ping_results_after = {}
 bgp_table_before = {}
 config_dict_before = {}
 output_dict_of_search_strings = {}
+routing_dict_before ={}
+napalm_results_dict = {}
 
 
 
@@ -45,6 +48,10 @@ def center_text(text, width):
 
 #This is a presantation layer
 #I may update this with a CLI overlay, a web app seems overkill
+
+
+
+
 
 def main(choice):
     if choice == "1":
@@ -104,26 +111,53 @@ def main(choice):
 
             elif sub_choice.lower() == "return":
                 break
-                # TODO:
-                #  This return option is useful for when we extend out option set to beyond search strings
-                #   napalm_device.get_interfaces_counters
-                #    napalm_device.get_interfaces
-                #    napalm_device.get_interfaces_ip
-                #    napalm_device.get_facts
-                #    napalm_device.get_environment (temp, fan speed, cpu)
-                #    napalm_device.cli    (cli commands)
-                #    napalm_device.get_arp_table
-                #    napalm_device.get_bgp_config
-                #    napalm_device.get_bgp_neighbors
-                #    NAPALM includes about triple the fucntions I've listed
-
 
             else:
                 print("Invalid choice. Please enter 'bgp', 'search', or 'return'.")
     elif choice == "2":
-        # Implement other functionality
-        print("Other functionality is not implemented yet.")
-    elif choice == "3":
+        print("What would you like to do: (1: Save results to file 2): Compare results 3): Break to main loop")
+        while True:
+            try:
+                sub_choice = int(input("Choose '1' or '2': "))
+                if sub_choice in [1, 2, 3]:
+                    break
+                else:
+                    print("Invalid input. Please choose '1' or '2' or '3'")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+        if sub_choice ==1:
+            results_list = None
+            while True:
+                try:
+                    #ping_results_before = {}, config_dict_before = {}, routing_dict_before = {}, napalm_results_dict = {}
+                    print("Here are your dictionaries to save")
+                    print("ping_results_before, config_dict_before, routing_dict_before, napalm_results_dict") #update this to a list of compiled functions
+                    results_list_input = input("Enter a list of filenames separated by commas: ")
+                    result_variable_names = [result.strip() for result in results_list_input.split(',')]
+                    print("  This is results_variable_names:")
+                    results_list = [globals()[name] for name in result_variable_names]
+                    # results_list = [locals()[var_name] for var_name in result_variable_names]
+                    confirm = input("Please enter y/n if okay").lower()
+                    if confirm == "y":
+                        print("test for pre-saves")
+                        print(f"First 2 items of napalm_results_dict: {dict(list(napalm_results_dict.items())[:2])}")  #modify this to to recursively loop through all passed in dictionaries
+                        save_results_to_file(results_list=results_list, filenames=result_variable_names) #datetime and os dependancies need to be fixed in Connection_Handler
+                        generate_report_by_ip_address()
+                        #TODO:
+                        # pass in optional dict args to generate_reports, and to create a seperate view section for it
+                        break
+
+                    else:
+                        continue
+                except Exception as e:
+                    print("Failed to save part or all of files:  "  + str(e))
+                    break
+                except Exception as e:
+                    print("Exception " + str(e))
+                    # Ask the user to confirm the filename
+        if sub_choice == 3:
+            return_to_main()
+    elif choice == 2:
        return_to_main()
 
 def reset_options():
@@ -196,8 +230,7 @@ def reset_options():
                             # TODO:
                             #  Here we can place other comparisons: https, https, open ports, ssh ports, default routes
                             #  Trace routes, VPN checkers, and even changes in ip routing metrics
-                            #  It may also be a good idea to compare total connectivity after config changes
-                            #  and offer a complete rollback of all devices
+                            #  It may also be a good idea to compare total connectivity, with spoofed ip headers
 
                         choice_res = input("Rollback or commit changes? (C|R)")
                         while True:
@@ -287,7 +320,7 @@ def reset_options():
 if __name__ == "__main__":
     print("*************************************************")
     print("*                                               *")
-    print("*   Welcome to the Network Configuration and    *")
+    print("*      Welcome to the Network                   *")
     print("*         Diagnostics Tool!                     *")
     print("*                                               *")
     print("*************************************************")
@@ -303,12 +336,10 @@ if __name__ == "__main__":
     except Exception as e:
         print("An error occurred during device connection initialization:")
         print(e)
-        import traceback   # I am not a fan of verbose code, or importing even standard libraries when I can avoid it, it is necessary here
+        import traceback   #get both exception and full traceback
         traceback.print_exc()
         print("There seems to be an error: This is probably due to your device_list.txt file not existing, or its formatting")
         print("Please refer to the exception trace above, supply a list in the programs directory and reload the program")
-
-
     print()
     print("Populating the device_connections table")
     print("Here is a summary list of the active conenctions now kept in memory:")
@@ -317,7 +348,7 @@ if __name__ == "__main__":
     print("First item:   " + str(placeholder[0]))
     print("Last item:   " + str(placeholder[-1]))
     print()
-
+    print("This set of addresses will be used for ping functionality")
     ip_addresses = get_valid_ip_addresses()
     print(ip_addresses)
     print()
@@ -355,25 +386,29 @@ if __name__ == "__main__":
     print(ping_results_before)
     print()
     print("Finally I save all the running configurations of the supplied devices into memory")
-    get_configurations_threaded(device_connections, config_dict_before)
-
-
-
-    print()
-    print("Welcome to the Network Configuration and Diagnostics Tool!")
-    print()
-    print("Please choose one of the following options:")
-    print("1. Manage configurations and updates (--test-connectivity)")
-    print("     This option for pushing configuration changes")
-    print()
-    print("2. Other Functionality (not implemented yet) (--other-functionality)")
-    print("3. Return to top of the program")
-    print()
-
-
+    # get_configurations_threaded(device_connections, config_dict_before, routing_dict_before, napalm_results_dict)
+    get_configurations_threaded(device_connections, config_dict_before, routing_dict_before, napalm_results_dict)
+    # print("This is Ping Results")
+    # print(ping_results_before)
+    # print("*" *25)
+    # print("This is your routing table")
+    # print(routing_dict_before)
+    # print("*" * 25)
+    # print("This is NAPALM")
+    # print(napalm_results_dict)
     def return_to_main(): #loops back to top of program
-        choice = input("Enter the option number (1, 2, or 3): ")
+        print()
+        print("Welcome to the Network Configuration and Diagnostics Tool!")
+        print()
+        print("Please choose one of the following options:")
+        print("1. Manage configurations and updates (--test-connectivity)")
+        print("     This option for pushing configuration changes")
+        print()
+        print("2. Save Device Configurations Directory File")
+        print("3. Return to top of the program")
+        print()
 
+        choice = input("Enter the option number (1, 2, or 3): ")
         while True:
             if choice in ["1", "2", "3"]:
                 main(choice)

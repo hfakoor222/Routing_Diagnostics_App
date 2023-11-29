@@ -42,8 +42,11 @@ https://github.com/hfakoor222/Routing_Diagnostics_App/assets/105625129/ec28c1b3-
 </p>
 
   $${\large\color{Green}Collaboration}$$
-If you would like to contribute on this  project I am open to any suggestions, and collaboration.
+If you would like to contribute on this  project:
 I am open to any contributions, including and not limited to refactoring the view layer, adding diagnostics (HTTP checker, IPsec fragmentation checker, MTU checker: refer to the issues tab above for more), cloud API's (i.e running diagnostics on AWS routers/switches).
+
+This program has an extended feature to batch update and batch rollback devices as well
+
 Currently I've found an interesting project which batch updates cisco devices from a single GUI, which I may integrate here.
 
 

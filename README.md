@@ -14,7 +14,7 @@ This CLI app runs diagnostics: Connectivity of subnets from each device, hardwar
 Currently it supports BGP and routing tables: extending it is easy as the program is modularized: i.e where ospf Link State default route packets are generated.
 
 
-Eventual plan is to add diagnostics to Connection_Handler.py, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions, + more. 
+Eventual plan is to add diagnostics, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions, + more. 
 
 It is a CLI based app: a web hosted version may be added.
 

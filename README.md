@@ -9,16 +9,18 @@
 $${\huge\color{Green}Routing \space \color{Green}Diagnostics \space \color{Green}App}$$
 
 
-This CLI app runs diagnostics: Connectivity of subnets from each device, hardware information (fan speed, temperature), arp tables, and routing information. It saves to timestamped files, and reports are generated (see the word doc in the repository). After configuration changes it is ran again and major changes are generated into a report.
+This CLI app runs diagnostics: Connectivity of subnets from each device, hardware information (fan speed, temperature, cdp tables + more), and routing information. It saves to timestamped files, and reports are generated (see the word doc in the repository). After configuration changes it is ran again and major changes are generated into a report.
 
-Currently it supports BGP and routing tables: extending it is easy as the program is modularized: i.e where ospf Link State default route packets are generated.
+Currently it supports BGP peering and routing tables: extending it is easy as the program is modularized. The underlying NAPALM library has built in device gathering commands (i.e. get arp table), that we can add to this, or Netmiko commands can be coded manually.
 
-
-Eventual plan is to add diagnostics, to include checking for open ports, https connections, VPN checker, and a IPSEC tunnel fragmentation functions, + more. 
 
 It is a CLI based app: a web hosted version may be added.
 
-Advantage is manually setting conditions with code: something which may be difficult to do with SolarWinds:  i.e RFC 3101 sets P-Bit clear for OSPF redistribution. Cisco devices use 3101, yet it works different for Junos devices. We can account for this through code when testing redistribution issues.
+Advantage is manually setting conditions with code: something which may be difficult to do with SolarWinds. We have a lot of control on the changes we are tracking, when they were made, and the timestamped device configurations for those changes. The information is saved in a MongoDB document database.
+
+This program has two extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. The app also batch updates devices and batch rollsback devices, for example if you don't like what you're seeing in the report. Firstly it saves a config file in your MongoDB as mentioned before; seccondly it saves a backup copy of the old config on the device (i.e. cisco router) itself. So for example we can find all devices that have ACL's with port 80 and batch update them and generate reports on routing tables afterwards - the reports show us the differences.
+
+See the example report located above in this repository.
 
 To run it include a device_list.txt file in your code directory with device user, pass ,secret, ip_address (see example). The .txt file can be encrypted and decrypted when being read by Python
 
@@ -45,7 +47,7 @@ https://github.com/hfakoor222/Routing_Diagnostics_App/assets/105625129/ec28c1b3-
 If you would like to contribute on this  project:
 I am open to any contributions, including and not limited to refactoring the view layer, adding diagnostics (HTTP checker, IPsec fragmentation checker, MTU checker: refer to the issues tab above for more), cloud API's (i.e running diagnostics on AWS routers/switches).
 
-This program has an extended feature to batch update and batch rollback devices as well
+
 
 Currently I've found an interesting project which batch updates cisco devices from a single GUI, which I may integrate here.
 

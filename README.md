@@ -18,7 +18,7 @@ It is a CLI based app: a web hosted version may be added.
 
 Advantage is manually setting conditions with code: something which may be difficult to do with SolarWinds. We have a lot of control on the changes we are tracking, when they were made, and the timestamped device configurations for those changes. The information is saved in a MongoDB document database.
 
-This program has two extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. The app also batch updates devices and batch rollsback devices, for example if you don't like what you're seeing in the report. Firstly it saves a config file in your MongoDB as mentioned before; seccondly it saves a backup copy of the old config on the device (i.e. cisco router) itself. So for example we can find all devices that have ACL's with port 80 and batch update them and generate reports on routing tables afterwards - the reports show us the differences.
+This program has two extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. The app also batch updates devices and batch rollsback devices. Firstly it saves a config file in your MongoDB as mentioned before; seccondly it saves a backup copy of the old config on the device (i.e. cisco router) itself. So for example we can find all devices that have ACL's with port 80 and batch update them and generate reports on routing tables - the reports show us the differences - we can rollback if we don't like the results.
 
 See the example report located above in this repository.
 

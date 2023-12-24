@@ -20,6 +20,8 @@ Advantage is manually setting conditions with code: something which may be diffi
 
 This program has two extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. The app also batch updates devices and batch rollsback devices. Firstly it saves a config file in your MongoDB as mentioned before; seccondly it saves a backup copy of the old config on the device itself (i.e. cisco router). So for example we can find all devices that have ACL's with port 80 and batch update them and generate reports on routing tables - the reports show us the differences - we can rollback if we don't like the results.
 
+The program is of course threaded, so it runs multiple operations at once depending on cpu core count.
+
 See the example report located above in this repository.
 
 To run it include a device_list.txt file in your code directory with device user, pass ,secret, ip_address (see example). The .txt file can be encrypted and decrypted when being read by Python

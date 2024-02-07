@@ -13,22 +13,14 @@ This CLI app runs diagnostics: Connectivity of subnets from each device, hardwar
 
 Currently it supports BGP peering, routing tables, connectivity to all the ip addresses of a subnet, and hardware info: extending it is easy as the program is modularized. The underlying NAPALM library has built in device gathering commands (i.e. get arp table), that we can add to this, or manual code.
 
+This is an agentless tool and does not require SNMP. It's great for comparing network and device changes after configuration changes.
 
-It is a CLI based app: a web hosted version may be added.
+In results_report (see attached above) we have available ram, power status of line cards on routers, fan status, cdp neighbors, entire routing tables with next hop, egress interface, and route metrics. When we make a change in the network and run reports:  if our next hop changes, or a route cost changes, or even the OSPF LSDB advertised link address changes for a route we will be notified. This makes it much faster than generating a workflow in SolarWinds or Cisco DNA Center. 
 
-Advantage is manually setting conditions with code: something which may be difficult to do with SolarWinds. We have a lot of control on the changes we are tracking, when they were made, and the timestamped device configurations for those changes. The information is saved in a MongoDB document database.
-
-This program has two extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. The app also batch updates devices and batch rollsback devices. Firstly it saves a config file in your MongoDB as mentioned before; seccondly it saves a backup copy of the old config on the device itself (i.e. cisco router) by using secure copy. So for example we can find all devices that have ACL's with port 80 and batch update them with new ACL's: and generate reports on routing tables - the reports show us the differences in routing conenctivity, next hop, cost metrics, + others - we can rollback if we don't like the results.
-
-The program is of course threaded, so it runs multiple operations at once depending on cpu core count.
-
-See the example report located above in this repository.
-
-To run it include a device_list.txt file in your code directory with device user, pass ,secret, ip_address (see example). The .txt file can be encrypted and decrypted when being read by Python
-
-<p>The app has been tested on Cisco 3660, 7200 routers  and more updated ios firmware with IP Base, IP Services, Enterprise Base, and Advanced Enterprise Services. It has been tested on both a GNS3 and a CCIE level eve-ng lab with about 50 devices:  (https://ccie4all.wordpress.com/)  <br><br><br><p></p>
+The program is threaded and runs in parallel on multiple devices - it handles multiple connections at once.
 
 
+This program has two extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. The app also batch updates devices and batch rollsback devices. Firstly it saves a config file in your MongoDB as mentioned before; seccondly it saves a backup copy of the old config on the device itself (i.e. cisco router) by using secure copy. So for example we can find all devices that have ACL's with port 80 and batch update them with new ACL's: and generate reports on routing tables. This is great for making small configuration changes across multiple devices in your network.
 
 
 

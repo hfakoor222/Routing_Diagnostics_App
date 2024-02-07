@@ -7,7 +7,7 @@
 $${\huge\color{Green}Routing \space \color{Green}Diagnostics \space \color{Green}App}$$
 
 
-This CLI app runs diagnostics: Connectivity of subnets from each device, hardware information (fan speed, temperature, cdp tables + more), and routing information. It saves to timestamped files, and reports are generated (see the word doc in the repository). After configuration changes it is ran again and major changes are generated into a report.
+This CLI app runs diagnostics.
 
 Currently it supports BGP peering, routing tables, connectivity to all the ip addresses of a subnet, and hardware info: extending it is easy as the program is modularized. The underlying NAPALM library has built in device gathering commands (i.e. get arp table), that we can add to this, or manual code.
 
@@ -20,13 +20,7 @@ The program is threaded and runs in parallel on multiple devices - it handles mu
 All that is required is SSH port 22 to be open and the program can execute across sites.
 
 
-This program has extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. This helps us find certain devices. If we want to batch update devices from the app we can do this.
-
-The app also batch updates devices and batch rollsback devices. Firstly it saves a config file in your MongoDB as mentioned before; seccondly it saves a backup copy of the old config on the device itself (i.e. cisco router) by using secure copy. So for example we can find all devices that have ACL's with port 80 and batch update them with new ACL's: and generate reports. . This is great for making small configuration changes across multiple devices in your network.
-
-
-
-
+This program has extended features: a search function: ["ospf, redistribute bgp"] will find all OSPF which redistributes bgp. ["ip access", "any", 80] finds all devices with ACL's that permit port 80 connections. This helps us find certain devices. If we want to batch update devices from the app we can do this. We can then use a script to batch update devices (there's also a batch update and rollback tool integrated into the current code)
 
 
 https://github.com/hfakoor222/Routing_Diagnostics_App/assets/105625129/ec28c1b3-b104-4015-b5fb-41560f396447

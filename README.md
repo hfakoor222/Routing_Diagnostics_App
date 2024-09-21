@@ -7,12 +7,17 @@
 $${\huge\color{Green}Routing \space \color{Green}Diagnostics}$$
 
 
-Program logs in parallel into multiple Cisco, Juniper, Arista devices performs network connectivity (to a range of IP subnets), obtains routing table, next hop, device hardware analysis, using NAPALM library (popular library built on SSH port 22) and stores into a report. After configuration changes in network devices we run the program again and a second report is compared to the first: Changes are outputted to a second report highlighting:
+Program logs in parallel into multiple Cisco, Juniper, Arista devices performs network connectivity (to a range of IP subnets), obtains routing table, next hop, device hardware analysis, using NAPALM library (popular library built on SSH port 22) and stores into a report. It also stored the configuration to file repository.
+
+After configuration changes in network devices we run the program again and a second report is compared to the first: Changes are outputted to a second report highlighting:
 Connectivity loss (ping sweep of inputted subnet range), outgoing interface changes, next-hop changes bgp peering changes + more.
+
+
+Snippets of the report:
 
 ```
 
-Snippets of the report:
+
 {'ip_address': '10.0.6.128/29', 'via': 'via 10.0.1.130,', 'interface': 'FastEthernet1/0'}
 ...
 get_arp_table: [
@@ -54,10 +59,31 @@ Snapshot Of BGP Neighbors:
           }
         }
       }
+...
+get_environment: {
+  "cpu": {
+    "0": {
+      "%usage": 12.0
+    }
+  },
+  "memory": {
+    "used_ram": 55938912,
+    "available_ram": 424734348
+  },
+  "temperature": {
+    "invalid": {
+      "is_alert": false,
+      "is_critical": false,
+      "temperature": -1.0
+    }
+
 ```
 
 
-There are many more functions built into NAPALM, including custom functions built into the program. 
+
+The second report lists all the changes in devices against the first report. We can narrow down which changes we want to see by modifying the Python code.
+
+There are many more functions built into NAPALM, 
 
 NAPALM Functions:
 get_arp_table
@@ -67,18 +93,12 @@ get_ntp_servers
 get_snmp_information
 get_vlans
 
+https://napalm.readthedocs.io/en/latest/support/index.html#getters-support-matrix
+
+I've included custom functions as well (subnet ping sweep, nested regular expression search function (to pinpoint devices with certain configurations), routing table functions (changes in default route, Administrative Distance, Next Hop).
 
 
-
-
-
-Currently it supports BGP peering, routing tables, connectivity to all the ip addresses of a subnet, and hardware info: extending it is easy as the program is modularized. The underlying NAPALM library has built in device gathering commands (i.e. get arp table), that we can add to this, or manual code.
-
-This is an agentless tool and does not require SNMP. It's great for comparing network and device changes after configuration changes.
-
-In results_report (see result_report attachment above) we have available ram, power status of line cards on routers, fan status, cdp neighbors, entire routing tables with next hop, egress interface, and route metrics. When we make a change in the network and run reports:  if our next hop changes, or a route cost changes, or even the OSPF LSDB advertised link address changes for a route we will be notified. This makes it much faster than generating a workflow in SolarWinds or Cisco DNA Center. 
-
-The program is threaded and runs in parallel on multiple devices - it handles multiple connections at once - i.e. for 200 devices it will take about 20 minutes to complete the reports.
+The program is multi-threaded, so it performs more than one device connection at once (about 10 connections for a 4 core system).
 
 All that is required is SSH port 22 to be open and the program can execute across sites.
 
@@ -87,8 +107,21 @@ This program has extended features: a search function: ["ospf, redistribute bgp"
 
 
 https://github.com/hfakoor222/Routing_Diagnostics_App/assets/105625129/ec28c1b3-b104-4015-b5fb-41560f396447
+```
+def threaded_napalm(device_connections, result_dict = None):
+    for device, (device_type, device_ip, username, password, secret) in device_connections.items():
 
-
+        threads = []
+        for func in functions:
+            thread = threading.Thread(target=napalm_functions, args=(device,))
+            thread.start()
+            threads.append(thread)
+        # Wait for all threads to finish
+        for thread in threads:
+            thread.join()
+            # we include an optional result_dict in funciton signature so we can pass it in directly or pass the function to a dict itself
+        return result_dict
+```
 
 
 <p>

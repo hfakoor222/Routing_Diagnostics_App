@@ -107,7 +107,7 @@ This program has extended features: a search function: ["ospf, redistribute bgp"
 
 
 https://github.com/hfakoor222/Routing_Diagnostics_App/assets/105625129/ec28c1b3-b104-4015-b5fb-41560f396447
-```
+
 def threaded_napalm(device_connections, result_dict = None):
     for device, (device_type, device_ip, username, password, secret) in device_connections.items():
 
@@ -120,8 +120,10 @@ def threaded_napalm(device_connections, result_dict = None):
         for thread in threads:
             thread.join()
             # we include an optional result_dict in funciton signature so we can pass it in directly or pass the function to a dict itself
-        return result_dict
-```
+        return result_dict```
+
+
+
 
 
 <p>

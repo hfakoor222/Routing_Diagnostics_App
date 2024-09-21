@@ -4,10 +4,14 @@
 
 
 
-$${\huge\color{Green}Routing \space \color{Green}Diagnostics \space \color{Green}App}$$
+$${\huge\color{Green}Routing \space \color{Green}Diagnostics}$$
 
 
-This CLI app runs diagnostics.
+Program logs in parallel into multiple Cisco, Juniper, Arista devices performs network connectivity (using spoofed ip packets), routing table, next hop, device hardware analysis, using NAPALM library. After configuration changes in network devices we run the program again and a comparison report is outputted highlighting:
+Connectivity loss (ping sweep of inputted subnet range), outgoing interface changes, next-hop changes.
+
+
+
 
 Currently it supports BGP peering, routing tables, connectivity to all the ip addresses of a subnet, and hardware info: extending it is easy as the program is modularized. The underlying NAPALM library has built in device gathering commands (i.e. get arp table), that we can add to this, or manual code.
 

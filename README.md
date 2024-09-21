@@ -85,13 +85,13 @@ The second report lists all the changes in devices against the first report. We 
 
 There are many more functions built into NAPALM, 
 
-NAPALM Functions:
-get_arp_table
-get_bgp_neghbors
-get_ipv6_neighbors_detail
-get_ntp_servers
-get_snmp_information
-get_vlans
+NAPALM Functions:<br />
+get_arp_table<br />
+get_bgp_neghbors<br />
+get_ipv6_neighbors_detail<br />
+get_ntp_servers<br />
+get_snmp_information<br />
+get_vlans<br />
 
 https://napalm.readthedocs.io/en/latest/support/index.html#getters-support-matrix
 

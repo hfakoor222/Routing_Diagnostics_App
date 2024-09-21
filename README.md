@@ -9,6 +9,9 @@ $${\huge\color{Green}Routing \space \color{Green}Diagnostics}$$
 
 Program logs in parallel into multiple Cisco, Juniper, Arista devices performs network connectivity (to a range of IP subnets), obtains routing table, next hop, device hardware analysis, using NAPALM library (popular library built on SSH port 22) and stores into a report. After configuration changes in network devices we run the program again and a second report is compared to the first: Changes are outputted to a second report highlighting:
 Connectivity loss (ping sweep of inputted subnet range), outgoing interface changes, next-hop changes bgp peering changes + more.
+
+```
+
 Snippets of the report:
 {'ip_address': '10.0.6.128/29', 'via': 'via 10.0.1.130,', 'interface': 'FastEthernet1/0'}
 ...
@@ -51,7 +54,7 @@ Snapshot Of BGP Neighbors:
           }
         }
       }
-
+```
 
 
 There are many more functions built into NAPALM, including custom functions built into the program. 

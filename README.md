@@ -7,8 +7,64 @@
 $${\huge\color{Green}Routing \space \color{Green}Diagnostics}$$
 
 
-Program logs in parallel into multiple Cisco, Juniper, Arista devices performs network connectivity (using spoofed ip packets), routing table, next hop, device hardware analysis, using NAPALM library. After configuration changes in network devices we run the program again and a comparison report is outputted highlighting:
-Connectivity loss (ping sweep of inputted subnet range), outgoing interface changes, next-hop changes.
+Program logs in parallel into multiple Cisco, Juniper, Arista devices performs network connectivity (to a range of IP subnets), obtains routing table, next hop, device hardware analysis, using NAPALM library (popular library built on SSH port 22) and stores into a report. After configuration changes in network devices we run the program again and a second report is compared to the first: Changes are outputted to a second report highlighting:
+Connectivity loss (ping sweep of inputted subnet range), outgoing interface changes, next-hop changes bgp peering changes + more.
+Snippets of the report:
+{'ip_address': '10.0.6.128/29', 'via': 'via 10.0.1.130,', 'interface': 'FastEthernet1/0'}
+...
+get_arp_table: [
+  {
+    "interface": "FastEthernet0/0",
+    "mac": "CA:04:4B:E2:00:00",
+    "ip": "10.0.1.1",
+    "age": 57.0
+  },
+...
+Ping Results Grouped by IP Address (Ping Sweep)
+IP Address: 10.0.1.2
+11.0.1.1
+11.0.1.2
+...
+Snapshot Of BGP Neighbors:
+{
+  "global": {
+    "router_id": "10.0.1.1",
+    "peers": {
+      "10.0.0.2": {
+        "local_as": 65000,
+        "remote_as": 65000,
+        "remote_id": "10.0.1.2",
+        "is_up": True,
+        "is_enabled": True,
+        "description": "internal-2",
+        "uptime": 4838400,
+        "address_family": {
+          "ipv4": {
+            "sent_prefixes": 637213,
+            "accepted_prefixes": 3142,
+            "received_prefixes": 3142
+          },
+          "ipv6": {
+            "sent_prefixes": 36714,
+            "accepted_prefixes": 148,
+            "received_prefixes": 148
+          }
+        }
+      }
+
+
+
+There are many more functions built into NAPALM, including custom functions built into the program. 
+
+NAPALM Functions:
+get_arp_table
+get_bgp_neghbors
+get_ipv6_neighbors_detail
+get_ntp_servers
+get_snmp_information
+get_vlans
+
+
 
 
 
